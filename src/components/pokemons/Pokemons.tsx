@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Loader from '../shared/loader/Loader';
-import CustomTable from '../shared/Table/Table';
-import TextFields from '../shared/input/Input';
+import CustomTable from '../shared/table/Table';
 import { makeStyles } from '@material-ui/core';
 
 
@@ -27,21 +26,10 @@ const Pokemons = () => {
             .catch(error => console.log(error))
     }, []);
 
-    const filterList = (value: string) => {
-        
-    }
-
-    const onChange = (e: any) => {
-        const text = e.target.value;
-        console.log(text)
-        const filteredList = filterList(text);
-    }
-
     if (loaded) {
         return(
             <div className={classes.wrapper}>
-                <TextFields onChange={onChange} text="Search by name" />
-                <CustomTable pokemons={pokemons}/>
+                <CustomTable pokemons={pokemons} loaded={loaded}/>
             </div>
         )
     } else {
