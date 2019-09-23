@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import TextFields from '../input/Input';
-import Data from './Data';
+import Data from './data/Data';
 
 
 export default function CustomTable(props: any) {
+  console.log(props)
   const [pokemons, setPokemons] = useState(props.pokemons.pokemon_entries);
 
   const filterList = (value: string) => {
-    return props.pokemons.pokemon_entries.filter(((el: any) => el.pokemon_species.name.toLowerCase().includes(value.toLowerCase())))
+    return props.pokemons.pokemon_entries.filter(((el: any ) => el.pokemon_species.name.toLowerCase().includes(value.toLowerCase())))
   }
 
   const onChange = (e: any) => {

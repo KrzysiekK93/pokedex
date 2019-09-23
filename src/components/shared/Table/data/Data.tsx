@@ -7,6 +7,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import ITableData from './interface';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -32,7 +33,8 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function Data(props: any){
+export default function Data(props: ITableData){
+  console.log(props);
   const classes = useStyles();
   return (
     <Paper className={classes.root}>
