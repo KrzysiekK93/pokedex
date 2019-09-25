@@ -4,7 +4,6 @@ import Data from './data/Data';
 
 
 export default function CustomTable(props: any) {
-  console.log(props)
   const [pokemons, setPokemons] = useState(props.pokemons.pokemon_entries);
 
   const filterList = (value: string) => {

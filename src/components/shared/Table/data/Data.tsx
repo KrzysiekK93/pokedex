@@ -34,7 +34,6 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function Data(props: ITableData){
-  console.log(props);
   const classes = useStyles();
   return (
     <Paper className={classes.root}>

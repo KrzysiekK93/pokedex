@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import { connect } from 'react-redux';
 import Loader from '../shared/loader/Loader';
 import CustomTable from '../shared/table/Table';
 import { makeStyles } from '@material-ui/core';
+import { getPokemonsPending, getPokemons, getPokemonsError } from '../../redux/reducers/pokemonsReducer';
+import { loadPokemons } from '../../redux/actions/pokemonsActions';
 
-
-const Pokemons = () => {
-    const [pokemons, setPokemons] = useState([]);
+const Pokemons = (props: any) => {
     const [loaded, setIsLoaded] = useState(false);
-    const useStyles = makeStyles(theme => ({
+    const useStyles = makeStyles(() => ({
         wrapper: {
             display: 'flex',
             position: 'relative',
@@ -18,18 +18,17 @@ const Pokemons = () => {
     const classes = useStyles();
 
     useEffect(() => {
-        axios.get('https://pokeapi.co/api/v2/pokedex/1')
-            .then(response => {
-                setPokemons(response.data)
-                setIsLoaded(true)
-            })
-            .catch(error => console.log(error))
-    }, []);
-
+        if (!props.pokemons.name) {
+            props.loadPokemons();
+        } else {
+            setIsLoaded(true)
+        }
+    }, [props.pokemons.name]);
+    
     if (loaded) {
         return(
             <div className={classes.wrapper}>
-                <CustomTable pokemons={pokemons} loaded={loaded}/>
+                <CustomTable pokemons={props.pokemons} loaded={loaded}/>
             </div>
         )
     } else {
@@ -41,5 +40,19 @@ const Pokemons = () => {
     }
 }
 
+function mapStateToProps(state: any){
+    return {
+        error: getPokemonsPending(state),
+        pokemons: getPokemons(state),
+        pending: getPokemonsError(state)
+    }
+}
 
-export default Pokemons;
+const mapDispatchToProps = {
+    loadPokemons
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Pokemons);

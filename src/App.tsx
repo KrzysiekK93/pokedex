@@ -6,10 +6,14 @@ import Pokemon from './components/pokemon/Pokemon';
 import Home from './components/home/Home';
 import PageNotFound from './components/pageNotFound/PageNotFound';
 import Container from '@material-ui/core/Container';
+import configureStore from "./redux/store";
+import { Provider } from "react-redux";
+
+const store = configureStore();
 
 const App: React.FC = () => {
   return (
-    <div>
+    <Provider store={store}>
       <Header />
       <Container>
         <Switch>
@@ -19,7 +23,7 @@ const App: React.FC = () => {
           <Route component={PageNotFound} />
         </Switch>
       </Container>
-    </div>
+    </Provider>
   );
 }
 
